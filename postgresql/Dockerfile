@@ -1,1 +1,1 @@
-from anishitani/docker-postgresql
+from postgres:latest

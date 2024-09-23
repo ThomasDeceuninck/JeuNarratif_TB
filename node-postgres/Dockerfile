@@ -1,1 +1,1 @@
-from nodejs/bitnami/express
+from bitnami/express:latest
