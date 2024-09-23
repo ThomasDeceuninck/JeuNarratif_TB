@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  react-native:
+    container_name: react-native
+    build: ./
+    ports:
+      - "3000:3000"
+    depends_on:
+      - express
+      - postgres
+
+  express:
+    container_name: express
+    build: ./node-postgres
+    ports:
+      - "3001:3001"    
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    build: ./postgresql
+    ports:
+      - "5432:5432"
+    volumes: 
+      - C:\Users\Student\source\repos\firstrepo\JeuNarratif_TB\volume:/var/lib/postgresql/data
