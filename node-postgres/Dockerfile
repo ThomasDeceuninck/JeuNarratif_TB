@@ -1,11 +1,11 @@
 from bitnami/express:latest
 
 workdir /app
-copy package*.json ./
+copy package*.json .
 run npm install
 
 copy *.js .
 
-expose 3001
+EXPOSE 3001
 
-cmd ["npm", "start"]
+cmd ["node", "index.js"]

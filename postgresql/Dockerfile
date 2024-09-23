@@ -1,9 +1,15 @@
 from postgres:latest
 
 env POSTGRES_USER=postgres
-env POSTGRES_PASSWORD=root
+env POSTGRES_PASSWORD=RooT1234
+#index.js dockercompose à changer uassi
 env POSTGRES_DB=JeuNarratif
 
-copy backup_db.pgsql /docker-entrypoint-initdb.d/
+run mkdir /var/dump
+WORKDIR /var/dump
 
-expose 5432
+copy backup_db.pgsql /var/dump/ 
+copy init.sh /docker-entrypoint-initdb.d/ 
+RUN chown postgres:postgres /docker-entrypoint-initdb.d/init.sh
+
+#expose 5432
