@@ -1,5 +1,5 @@
-node_modules/
-.expo/
+#node_modules/
+#.expo/ pour faire fonctionner ubuntu, remettre apres
 dist/
 npm-debug.*
 *.jks
