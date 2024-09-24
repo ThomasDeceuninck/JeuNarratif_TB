@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const app = express()
 const port = 3001
-
+require('dotenv').config();
 const db_request = require('./db_request')
 
 app.use(express.json())
@@ -107,5 +107,6 @@ app.post(`/postResolution`, (req, res) => {
 
 
 app.listen(port, () => {
+  console.log(`Database IP : ${process.env.POSTGRES_URL}.`)
   console.log(`App running on port ${port}.`)
 })

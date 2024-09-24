@@ -1,6 +1,32 @@
-version: '3.8'
+#version: '3.8'
 
 services:
+  postgressvc:
+    container_name: postgressvc
+    build: ./postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: RooT1234 # sinon root
+    #volumes: 
+    #  - C:\Users\Student\source\repos\firstrepo\JeuNarratif_TB\volume:/var/lib/postgresql/data
+
+  express:
+    container_name: express
+    build: ./node-postgres
+    ports:
+      - "3001:3001"  
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: RooT1234
+      POSTGRES_DB: JeuNarratif
+      POSTGRES_URL: postgressvc
+      POSTGRES_PORT: 5432
+    depends_on:
+      - postgressvc
+
   react-native:
     container_name: react-native
     build: ./
@@ -16,22 +42,6 @@ services:
       - REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.18 #ifconfig
     depends_on:
       - express
-      - postgres
+      - postgressvc
 
-  express:
-    container_name: express
-    build: ./node-postgres
-    ports:
-      - "3001:3001"    
-    depends_on:
-      - postgres
 
-  postgres:
-    container_name: postgres
-    build: ./postgresql
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=root #bon pswd
-    #volumes: 
-    #  - C:\Users\Student\source\repos\firstrepo\JeuNarratif_TB\volume:/var/lib/postgresql/data

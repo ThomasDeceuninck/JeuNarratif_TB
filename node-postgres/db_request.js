@@ -1,9 +1,9 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'JeuNarratif',
-  password: 'RooT1234',
+  user: process.env.POSTGRES_USER,
+  host: process.env.POSTGRES_URL,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD,
   port: 5432,
 });
 
@@ -12,6 +12,11 @@ const getBibli = () => {
       pool.query('SELECT * FROM select_bibli_fctn()', (error, results) => {
         if (error) {
           reject(error)
+        }
+        console.log('Query results:', results); // Ajout d'un log pour voir le contenu de `results` src: mickael
+        if (!results || !results.rows) {
+          console.error('No rows found in results');
+          return reject(new Error('No rows found'));
         }
         resolve(results.rows);
       })
